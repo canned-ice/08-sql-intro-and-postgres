@@ -42,7 +42,7 @@ app.get('/articles', (request, response) => {
   // This corresponds to #2 to #3, as the client in the situation is the Server itself, which is querying the Database (that is acting like the server in this situation).
   // Article.fetchAll
   // CRUD: Read (GET)
-  client.query('')
+  client.query('SELECT * FROM articles')
     .then(function(result) {
       response.send(result.rows);
     })
@@ -86,8 +86,19 @@ app.put('/articles/:id', (request, response) => {
   // This corresponds with #5, where the server is actually PUTting the data from the db into html that's being served to the client (end-user)
   // Article.updateRecord
   // CRUD: Update(PUT)
-  let SQL = '';
-  let values = [];
+  let SQL = `
+  UPDATE articles(title, author, author_url, category, published_on, body)
+  VALUES ($1, $2, $3, $4, $5, $6);
+`;
+
+  let values = [
+    request.body.title,
+    request.body.author,
+    request.body.author_url,
+    request.body.category,
+    request.body.published_on,
+    request.body.body
+  ]
 
   client.query(SQL, values)
     .then(() => {
@@ -101,7 +112,7 @@ app.put('/articles/:id', (request, response) => {
 
 app.delete('/articles/:id', (request, response) => {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // This corresponds to the #1 to #2. 
+  // This corresponds to the #1 to #2.
   //This is being used the Article.prototype.deleteRecord.
   //This is DESTROY.
 
@@ -124,7 +135,7 @@ app.delete('/articles', (request, response) => {
   //In article.js this is interacting with Article.truncateTable- because thats a function that talks to the DB and updates the information.
   //CRUD where at Destroy.
 
-  let SQL = '';
+  let SQL = `DELETE FROM articles;`;
   client.query(SQL)
     .then(() => {
       response.send('Delete complete')
@@ -148,11 +159,11 @@ app.listen(PORT, () => {
 ////////////////////////////////////////
 function loadArticles() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  // At this point we are at #3. 
+  // At this point we are at #3.
   //It's not interacting with article.js.
   //Its a READ.
 
-  let SQL = 'SELECT COUNT(*) FROM articles';
+  let SQL = 'SELECT COUNT(*) FROM articles;';
   client.query(SQL)
     .then(result => {
       // REVIEW: result.rows is an array of objects that PostgreSQL returns as a response to a query.
@@ -175,7 +186,7 @@ function loadArticles() {
 
 function loadDB() {
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  //#4 
+  //#4
   //This is also not interacting with article.js
   //Creating.
   client.query(`
