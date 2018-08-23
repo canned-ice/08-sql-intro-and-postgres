@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const pg = require('pg');
 const express = require('express');
 
 const PORT = process.env.PORT || 3000;
@@ -11,7 +12,7 @@ const app = express();
 // const conString = 'postgres://USER:PASSWORD@HOST:PORT/DBNAME';
 
 // Mac:
-// const conString = 'postgres://localhost:5432';
+const conString = 'postgres://localhost:5432';
 
 const client = new pg.Client();
 
