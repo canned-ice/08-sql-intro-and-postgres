@@ -86,10 +86,16 @@ app.put('/articles/:id', (request, response) => {
   // This corresponds with #5, where the server is actually PUTting the data from the db into html that's being served to the client (end-user)
   // Article.updateRecord
   // CRUD: Update(PUT)
-  let SQL = `
-  UPDATE articles(title, author, author_url, category, published_on, body)
-  VALUES ($1, $2, $3, $4, $5, $6);
-`;
+  let SQL = `UPDATE articles
+            SET 
+              title=$1,
+              author=$2,
+              author_url=$3,
+              category=$4,
+              published_on=$5,
+              body=$6
+            WHERE
+              article_id=$7;`;
 
   let values = [
     request.body.title,
@@ -97,7 +103,8 @@ app.put('/articles/:id', (request, response) => {
     request.body.author_url,
     request.body.category,
     request.body.published_on,
-    request.body.body
+    request.body.body,
+    request.body.article_id
   ]
 
   client.query(SQL, values)
@@ -158,6 +165,7 @@ app.listen(PORT, () => {
 //////// ** DATABASE LOADER ** ////////
 ////////////////////////////////////////
 function loadArticles() {
+  console.log('loadArticles is running');
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // At this point we are at #3.
   //It's not interacting with article.js.
@@ -185,10 +193,11 @@ function loadArticles() {
 }
 
 function loadDB() {
+  console.log('loadDB is running');
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
-  //#4
-  //This is also not interacting with article.js
-  //Creating.
+  // #4
+  // This is also not interacting with article.js
+  // Creating.
   client.query(`
     CREATE TABLE IF NOT EXISTS articles (
       article_id SERIAL PRIMARY KEY,
