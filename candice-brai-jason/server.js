@@ -12,7 +12,8 @@ const app = express();
 // const conString = 'postgres://USER:PASSWORD@HOST:PORT/DBNAME';
 
 // Mac:
-const conString = 'postgres://localhost:5432';
+const conString = 'postgres://localhost:5432/kilovolt';
+// FRIDAY COMMENT: Added /kilovolt to our conString to ensure that we connect to the correct database
 
 const client = new pg.Client(conString);
 
