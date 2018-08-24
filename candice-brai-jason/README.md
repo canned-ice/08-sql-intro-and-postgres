@@ -6,6 +6,8 @@
 ## Overview
 We are creating a database that the local server that runs off our a machine and allows access by other users.
 
+Friday: We worked through server.js and whiteboarded each major function.
+
 ## Getting Started
  
  Clone https://github.com/canned-ice/08-sql-intro-and-postgres. Install dependencies. Run through the terminal. 
@@ -17,6 +19,8 @@ Html, Css, Javascript, handlebars, Jquery, Express, nodemon
 ## Change Log
 
 08-23-2018 12:45pm - Application now has a fully-functional express server supported by a local postgres, with GET and POST routes for the book resource.
+
+08-24-2018 11:23pm - Fixed server.js so that the database would post to kilovolt rather than user. Added whiteboard photos of server.js.
 
 ## Credits and Collaborations
 
