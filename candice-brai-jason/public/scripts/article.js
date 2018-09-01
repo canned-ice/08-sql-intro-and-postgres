@@ -30,7 +30,7 @@ Article.loadAll = articleData => {
 };
 
 Article.fetchAll = callback => {
-  $.get('/articles')
+  $.get('/articles') //this is calling a AJEX this like a pause button until they get something back. READ -is the crud youre just looking to see it.
     .then(
       function(results) {
       // REVIEW: Call loadAll, and pass in the results, then invoke the callback.
@@ -42,7 +42,7 @@ Article.fetchAll = callback => {
 
 
 // REVIEW: Take a few minutes and review what each of these new methods do in relation to our server and DB
-Article.truncateTable = callback => {
+Article.truncateTable = callback => { //callback is a parameter
   $.ajax({
     url: '/articles',
     method: 'DELETE',

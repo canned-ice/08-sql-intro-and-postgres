@@ -12,9 +12,10 @@ const app = express();
 // const conString = 'postgres://USER:PASSWORD@HOST:PORT/DBNAME';
 
 // Mac:
-const conString = 'postgres://localhost:5432';
+// const conString = 'postgres://localhost:5432';
 
-const client = new pg.Client(conString);
+
+const client = new pg.Client(conString); //new postgres client that the server is going to be a client
 
 // REVIEW: Use the client object to connect to our DB.
 client.connect();
@@ -37,7 +38,8 @@ app.get('/new-article', (request, response) => {
 
 
 // REVIEW: Routes for making API calls to use CRUD Operations on our database
-app.get('/articles', (request, response) => {
+app.get('/articles', (request, response) => { //this is a callback when we trigger the function this will load once called.
+
   // COMMENT: What number(s) of the full-stack-diagram.png image correspond to the following line of code? Which method of article.js is interacting with this particular piece of `server.js`? What part of CRUD is being enacted/managed by this particular piece of code?
   // This corresponds to #2 to #3, as the client in the situation is the Server itself, which is querying the Database (that is acting like the server in this situation).
   // Article.fetchAll
